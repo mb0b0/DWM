@@ -1,0 +1,11 @@
+dmenu
+broken_tilewide/
+broken_tilewide/*
+# *.1
+new_vertical_tabs_dwm/
+*.o
+*.orig
+*.rej
+dwm
+patches/
+slstatus_old_doesnt_work/
