@@ -273,6 +273,7 @@ static void restack(Monitor *m);
 static void run(void);
 static void runautostart(void);
 static void scan(void);
+static void runAutostart(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2,
                      long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
@@ -1778,6 +1779,10 @@ void runautostart(void) {
   free(path);
 }
 
+void runAutostart(void){
+  system("cd ~/.config/dwm; ./autostart_blocking.sh &");
+  system("cd ~/.config/dwm; ./autostart.sh &");
+}
 void scan(void) {
   unsigned int i, num;
   Window d1, d2, *wins = NULL;
@@ -2837,6 +2842,7 @@ int main(int argc, char *argv[]) {
   if (pledge("stdio rpath proc exec", NULL) == -1)
     die("pledge");
 #endif /* __OpenBSD__ */
+  runAutostart();
   scan();
   runautostart();
   run();

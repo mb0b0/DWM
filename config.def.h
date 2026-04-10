@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details.background */
-// #include <X11/XF86keysym.h> 
+#include <X11/XF86keysym.h> 
 #include "fibonacci.c"
 /* appearance */ static const unsigned int borderpx = 1; /* border pixel of windows */
 static const int startwithgaps = 0;     /* 1 means gaps are used by default */
@@ -20,7 +20,7 @@ static const int vertpad = 14;    /* vetical padding of bar */
 static const int sidepad = 12;      /*horizontal padding of bar */
 /* static const char *fonts[] = {"JetBrainsMono NF:Regular:size=12"}; */
 
-static const char *fonts[] = {"UbuntuMono Nerd Font:Light:size=13"};
+static const char *fonts[] = {"UbuntuMono Nerd Font:Light:size=16"};
 static const char dmenufont[] = {"firacode Nerd Font:Medium:size=24"};
 static const char background2[] = "#282a36";
 static const char border1[] = "#ff74cE";
@@ -59,7 +59,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact = 0.85; /* factor of master area size [0.05..0.95] */
+static const float mfact = 0.45; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
 static const int resizehints =
     1; /* 1 means respect size hints in tiled resizals */
@@ -108,8 +108,8 @@ static const char *termcmd[] = {"alacritty", NULL};
 static const char *st[] = {"st", NULL};
 static const char *browser[] = {"firefox", NULL};
 static const char *explorer[] = {"thunar", NULL};
-static const char *brightness_up[] = {"brightnessctl", "s", "30+", NULL};
-static const char *brightness_down[] = {"brightnessctl", "s", "30-", NULL};
+static const char *brightness_up[] = {"brightnessctl", "s", "30%+", NULL};
+static const char *brightness_down[] = {"brightnessctl", "s", "30%-", NULL};
 static const char *audio_up[] = {"audio_up", NULL};
 static const char *audio_down[] = {"audio_down", NULL};
 static const char *spotify[] = {"alacritty",
@@ -127,10 +127,10 @@ static const char *lang_us[] = {"setxkbmap", "us", NULL};
 static const char *lang_rs[] = {"setxkbmap", "rs", NULL};
 static const char *discord[] = {"discord_chromium",  NULL};
 static const char *vesktop[] = {"vesktop",  NULL};
-static const char *chatGPT[] = {"chatGPT",  NULL};
-static const char *fehbg[] = {"/home/stalone/.fehbg",  NULL};
-static const char *finder[] = {"alacritty","--class=FinderApp,finder","--title=finder","-e","/home/stalone/.local//bin/finder", NULL};
-static const char *dw[] = {"dw", NULL};
+static const char *chatGPT[] = {"/home/b0b0/.local/bin/chatGPT",  NULL};
+static const char *fehbg[] = {"/home/b0b0/.fehbg",  NULL};
+static const char *finder[] = {"alacritty","--class=FinderApp,finder","--title=finder","-e","/home/b0b0/.local/bin/finder", NULL};
+static const char *dw[] = {"/home/b0b0/.local/bin/dw", NULL};
 /* static const char *suspend[] = {"systemctl", "suspend", NULL}; */
 /* #define XF86MonBrightnessUp   b_down */
 /* #define XF86MonBrightnessDown b_up */
@@ -138,11 +138,14 @@ static const char *dw[] = {"dw", NULL};
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_o, spawn, {.v = audio_up}},
+    {MODKEY | ShiftMask, XK_o, spawn, {.v = audio_down}},
     /* {MODKEY, XK_l, spawn, {.v = suspend}}, */
     {MODKEY, XK_p, spawn, {.v = print_screen}},
-    {MODKEY | ShiftMask, XK_o, spawn, {.v = audio_down}},
-    /* {MODKEY, XK_p, spawn, {.v = brightness_up}}, */
-    /* {MODKEY | ShiftMask, XK_p, spawn, {.v = brightness_down}}, */
+    {0, XF86XK_AudioLowerVolume, spawn, {.v = audio_down}},
+    {0, XF86XK_AudioRaiseVolume, spawn, {.v = audio_up}},
+    {0, 0x1008ff02, spawn, {.v = brightness_up}},
+    // {MODKEY | ShiftMask, XK_c, spawn, {.v = printscreen}},
+    {0, 0x1008ff03, spawn, {.v = brightness_down}},
     {MODKEY, XK_m, spawn, {.v = dmenucmd}},
     {MODKEY | ShiftMask, XK_m, spawn, {.v = roficmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
